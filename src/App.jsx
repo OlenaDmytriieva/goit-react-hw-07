@@ -8,12 +8,14 @@ import SearchBox from "./components/SearchBox/SearchBox";
 import { Loader } from "./components/Loader/Loader";
 import Error from "./components/Error/Error";
 import { fetchContacts } from "./redux/contactsOps";
+import { selectError, selectLoading } from "./redux/contactsSlice";
 
 
 export default function App() {
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.contacts.loading);
-  const error = useSelector((state) => state.contacts.error);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+ 
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -27,7 +29,7 @@ export default function App() {
           <ContactForm />
           <SearchBox />
           {loading && <Loader>Loading in progress, please wait</Loader>}
-          {error && <Error>Error message</Error>}
+          {error && <Error>Something went wrong</Error>}
           <ContactList />
         </div>
       </Container>
